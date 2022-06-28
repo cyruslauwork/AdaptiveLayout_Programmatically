@@ -62,15 +62,17 @@ extension ViewControllerB {
         
         // Button
         let btn = UIButton()
-        btn.setBackgroundImage(UIImage(named: "lego"), for: .normal)
+        btn.setImage(UIImage(named: "lego"), for: .normal)
         btn.addTarget(self, action: #selector(show_NonIBAction_ViewB), for: .touchUpInside) // @objc func
 //        smartPhoneIcon.addTarget(self, action: #selector(show_IBAction_ViewB(_:)), for: .touchUpInside) // IBAction func
         parentView.addSubview(btn)
+        btn.imageView?.contentMode = .center
+        btn.imageView?.contentMode = .scaleAspectFit
         btn.translatesAutoresizingMaskIntoConstraints = false
         let btn_xConstraint = btn.centerXAnchor.constraint(equalTo: parentView.centerXAnchor)
         let btn_yConstraint = btn.centerYAnchor.constraint(equalTo: parentView.bottomAnchor, constant: parentView.frame.size.height * -0.2)
-        let btn_wConstraint = btn.widthAnchor.constraint(equalToConstant: 50)
-        let btn_hConstraint = btn.heightAnchor.constraint(equalToConstant: 50)
+        let btn_wConstraint = btn.widthAnchor.constraint(equalToConstant: parentView.frame.size.width * 0.15)
+        let btn_hConstraint = btn.heightAnchor.constraint(equalToConstant: parentView.frame.size.width * 0.15)
         parentView.addConstraints([btn_xConstraint, btn_yConstraint, btn_wConstraint, btn_hConstraint])
         
         for _ in 1...2 {
@@ -79,7 +81,7 @@ extension ViewControllerB {
             view.backgroundColor = UIColor.white
             view.layer.cornerRadius = 16
             view.translatesAutoresizingMaskIntoConstraints = false
-            view.heightAnchor.constraint(equalToConstant: 200).isActive = true
+            view.heightAnchor.constraint(equalToConstant: parentView.frame.size.height * 0.25).isActive = true
             scrollStackViewContainer.addArrangedSubview(view)
         }
     }

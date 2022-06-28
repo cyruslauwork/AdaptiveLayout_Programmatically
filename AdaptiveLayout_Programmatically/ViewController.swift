@@ -72,36 +72,49 @@ extension ViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         let view_xConstraint = view.centerXAnchor.constraint(equalTo: parentView.centerXAnchor)
         let view_yConstraint = view.centerYAnchor.constraint(equalTo: parentView.bottomAnchor, constant: parentView.frame.size.height * -0.15)
-        let view_wConstraint = view.widthAnchor.constraint(equalToConstant: 400)
-        let view_hConstraint = view.heightAnchor.constraint(equalToConstant: 300)
+        let view_wConstraint = view.widthAnchor.constraint(equalToConstant: parentView.frame.size.width)
+        let view_hConstraint = view.heightAnchor.constraint(equalToConstant: parentView.frame.size.height * 0.5)
         parentView.addConstraints([view_xConstraint, view_yConstraint, view_wConstraint, view_hConstraint])
         
         // Image
         let imgSrc:UIImage = UIImage(named: "lego")!
         let img = UIImageView(image: imgSrc)
+        img.contentMode = .center
+        img.contentMode = .scaleAspectFit
         parentView.addSubview(img)
         img.translatesAutoresizingMaskIntoConstraints = false
         let img_xConstraint = img.centerXAnchor.constraint(equalTo: parentView.centerXAnchor)
         let img_yConstraint = img.centerYAnchor.constraint(equalTo: parentView.topAnchor, constant: parentView.frame.size.height * 0.2)
-        let img_wConstraint = img.widthAnchor.constraint(equalToConstant: 200)
-        let img_hConstraint = img.heightAnchor.constraint(equalToConstant: 100)
+        let img_wConstraint = img.widthAnchor.constraint(equalToConstant: parentView.frame.size.width * 0.75)
+        let img_hConstraint = img.heightAnchor.constraint(equalToConstant: parentView.frame.size.height * 0.15)
         parentView.addConstraints([img_xConstraint, img_yConstraint, img_wConstraint, img_hConstraint])
         
         // Repeat Upside Down Image
         let imgSrc2:UIImage = UIImage(cgImage: imgSrc.cgImage!, scale: imgSrc.scale, orientation: .down)
         let img2 = UIImageView(image: imgSrc2)
+        img2.contentMode = .center
+        img2.contentMode = .scaleAspectFit
         parentView.addSubview(img2)
         img2.translatesAutoresizingMaskIntoConstraints = false
         let img2_xConstraint = img2.centerXAnchor.constraint(equalTo: parentView.centerXAnchor)
         let img2_yConstraint = img2.centerYAnchor.constraint(equalTo: parentView.topAnchor, constant: parentView.frame.size.height * 0.4)
-        let img2_wConstraint = img2.widthAnchor.constraint(equalToConstant: 200)
-        let img2_hConstraint = img2.heightAnchor.constraint(equalToConstant: 100)
+        let img2_wConstraint = img2.widthAnchor.constraint(equalToConstant: parentView.frame.size.width * 0.75)
+        let img2_hConstraint = img2.heightAnchor.constraint(equalToConstant: parentView.frame.size.height * 0.15)
         parentView.addConstraints([img2_xConstraint, img2_yConstraint, img2_wConstraint, img2_hConstraint])
         
         // Label
         let label = UILabel()
         label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
-        label.font = UIFont(name: "HelveticaNeue-Bold", size: 14)
+//        label.font = UIFont(name: "HelveticaNeue-Bold", size: 14) // For Fixed Font Size
+        guard let customFont = UIFont(name: "HelveticaNeue-Bold", size: UIFont.labelFontSize) else {
+            fatalError("""
+                Failed to load the custom font.
+                Make sure the font file is included in the project and the font name is spelled correctly.
+                """
+            )
+        }
+        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: customFont)
+        label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         label.textAlignment = .center
@@ -110,21 +123,23 @@ extension ViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         let label_xConstraint = label.centerXAnchor.constraint(equalTo: parentView.centerXAnchor)
         let label_yConstraint = label.centerYAnchor.constraint(equalTo: parentView.bottomAnchor, constant: parentView.frame.size.height * -0.1)
-        let label_wConstraint = label.widthAnchor.constraint(equalToConstant: 200)
-        let label_hConstraint = label.heightAnchor.constraint(equalToConstant: 100)
+        let label_wConstraint = label.widthAnchor.constraint(equalToConstant: parentView.frame.size.width * 0.75)
+        let label_hConstraint = label.heightAnchor.constraint(equalToConstant: parentView.frame.size.height * 0.15)
         parentView.addConstraints([label_xConstraint, label_yConstraint, label_wConstraint, label_hConstraint])
         
         // Button
         let btn = UIButton()
-        btn.setBackgroundImage(UIImage(named: "lego"), for: .normal)
+        btn.setImage(UIImage(named: "lego"), for: .normal)
         btn.addTarget(self, action: #selector(show_NonIBAction_View), for: .touchUpInside) // @objc func
         //        smartPhoneIcon.addTarget(self, action: #selector(show_IBAction_View(_:)), for: .touchUpInside) // IBAction func
+        btn.imageView?.contentMode = .center
+        btn.imageView?.contentMode = .scaleAspectFit
         parentView.addSubview(btn)
         btn.translatesAutoresizingMaskIntoConstraints = false
         let btn_xConstraint = btn.centerXAnchor.constraint(equalTo: parentView.centerXAnchor)
         let btn_yConstraint = btn.centerYAnchor.constraint(equalTo: parentView.bottomAnchor, constant: parentView.frame.size.height * -0.2)
-        let btn_wConstraint = btn.widthAnchor.constraint(equalToConstant: 50)
-        let btn_hConstraint = btn.heightAnchor.constraint(equalToConstant: 50)
+        let btn_wConstraint = btn.widthAnchor.constraint(equalToConstant: parentView.frame.size.width * 0.15)
+        let btn_hConstraint = btn.heightAnchor.constraint(equalToConstant: parentView.frame.size.width * 0.15)
         parentView.addConstraints([btn_xConstraint, btn_yConstraint, btn_wConstraint, btn_hConstraint])
     }
 }

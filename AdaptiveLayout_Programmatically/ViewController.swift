@@ -61,8 +61,13 @@ class ViewController: UIViewController {
 
 extension ViewController {
     private func viewController() {
-        
         let parentView = self.view!
+        
+        // For CGSize Constants on Percentage
+        // Style 1: By View Size
+//        let sth_hConstraint = view.heightAnchor.constraint(equalToConstant: parentView.frame.size.height * 0.5)
+        // Style 2: By Device Screen Size
+//        let sth_wConstraint = view.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width * 0.5)
         
         // View
         let view = UIView()

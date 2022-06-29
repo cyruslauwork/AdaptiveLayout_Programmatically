@@ -60,6 +60,24 @@ extension ViewControllerB {
     private func ViewControllerViewB(){
         let parentView = self.view!
         
+        // For CGSize Constants on Percentage
+        // Style 1: By View Size
+//        let sth_hConstraint = view.heightAnchor.constraint(equalToConstant: parentView.frame.size.height * 0.5)
+        // Style 2: By Device Screen Size
+//        let sth_wConstraint = view.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width * 0.5)
+        
+        // View
+        let view = UIView()
+        view.layer.backgroundColor = UIColor(red: 1, green: 0, blue: 0, alpha: 1).cgColor
+        view.layer.cornerRadius = 64
+        parentView.addSubview(view)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        let view_xConstraint = view.centerXAnchor.constraint(equalTo: parentView.centerXAnchor)
+        let view_yConstraint = view.centerYAnchor.constraint(equalTo: parentView.bottomAnchor, constant: parentView.frame.size.height * -0.15)
+        let view_wConstraint = view.widthAnchor.constraint(equalToConstant: parentView.frame.size.width)
+        let view_hConstraint = view.heightAnchor.constraint(equalToConstant: parentView.frame.size.height * 0.5)
+        parentView.addConstraints([view_xConstraint, view_yConstraint, view_wConstraint, view_hConstraint])
+        
         // Button
         let btn = UIButton()
         btn.setImage(UIImage(named: "lego"), for: .normal)
@@ -75,7 +93,7 @@ extension ViewControllerB {
         let btn_hConstraint = btn.heightAnchor.constraint(equalToConstant: parentView.frame.size.width * 0.15)
         parentView.addConstraints([btn_xConstraint, btn_yConstraint, btn_wConstraint, btn_hConstraint])
         
-        for _ in 1...2 {
+        for _ in 1...5 {
             // View
             let view = UIView()
             view.backgroundColor = UIColor.white
